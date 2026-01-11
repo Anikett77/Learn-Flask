@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -6,11 +6,9 @@ app.secret_key = 'your_secret_key'
 
 @app.route("/")
 def hello_world():
-    flash("Hello ji")
-    return render_template("index.html")
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
+    name = request.args.get("name")
+    lang = request.args.get("language")
+    print(name, lang)
+    return render_template("index.html", lang=lang, name=name)
 
 app.run(debug=True)
